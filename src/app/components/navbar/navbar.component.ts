@@ -1,7 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import {UserService} from '../../user.service';
+import {User} from '../../user';
+import {Service} from '../../service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,24 +11,19 @@ import {UserService} from '../../user.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-
 export class NavbarComponent {
-  userService: UserService = inject(UserService);
-  loggedIn = false;
-  user = JSON.parse(localStorage.getItem('user') || '{}');
+  loggedIn!: boolean;
+  user!: User;
 
   constructor() {
-    this.checkLogin();
-  }
-
-  checkLogin() {
-    if(localStorage.getItem('user')!=null){
-      this.loggedIn = true;
+    this.loggedIn = !!localStorage.getItem('user');
+    if (this.loggedIn) {
+      this.user = JSON.parse(localStorage.getItem('user')!);
     }
   }
 
   logout() {
-    this.userService.logout();
+    Service.logout();
     this.loggedIn = false;
     window.location.reload();
   }

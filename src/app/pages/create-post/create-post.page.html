@@ -10,18 +10,25 @@
       <p>Provide information about your item</p>
       <div>
         <label type="text">Title</label>
-        <input type="text" placeholder="Enter a title">
+        <input id="title" type="text" placeholder="Enter a title" (input)="validateTitle()"
+               (focusout)="validateTitle()">
         <label type="text">Category</label>
-        <select name="categories" id="category">
-          <option value="">Select a category</option>
-          <option value="test">test</option>
-        </select>
+        <div id="select">
+          <select id="category" name="categories" (input)="validateCategory()" (focusout)="validateCategory()">
+            <option value="">Select a category</option>
+            <option value="auction">Auction</option>
+            <option value="sale">Sale</option>
+          </select>
+        </div>
         <label type="text">Price</label>
-        <input type="number" name="" id="">
+        <input id="price" type="number" placeholder="Enter a price" min="0" step="0.01" max="1000000"
+               (input)="validatePrice()" (focusout)="validatePrice()">
         <label type="text">Description</label>
-        <input type="text" placeholder="Provide a description about your item">
+        <textarea id="description" placeholder="Provide a description about your item"
+                  (input)="validateDescription()" (focusout)="validateDescription()"></textarea>
+        <div id="error" class="hidden"></div>
       </div>
-      <button id="button">Create listing</button>
+      <button id="button" (click)="onSubmit()">Create listing</button>
     </div>
   </div>
 </div>
