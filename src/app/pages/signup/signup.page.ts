@@ -10,6 +10,9 @@ import {UserService} from '../../user.service';
   styleUrl: './signup.page.css',
 })
 
+//TODO: add alert to let users signup successfully
+
+
 export class SignUpPage {
   userService: UserService = inject(UserService);
   isValidName: boolean = false;
