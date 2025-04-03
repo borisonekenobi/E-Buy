@@ -2,21 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-buy-details',
+  selector: 'app-sale-details',
   imports: [],
-  templateUrl: './buy-details.page.html',
-  styleUrl: './buy-details.page.css',
+  templateUrl: './sale-details.page.html',
+  styleUrl: './sale-details.page.css',
 })
 
 //TODO: add authentication to the purchase process
 
-export class BuyDetailsPage implements OnInit {
+export class SaleDetailsPage implements OnInit {
   //purchase confirmation
   showAlert = false;
   purchaseComplete = false;
 
   productId: string = '';
-  type: string = ''; // auction or buy
+  type: string = ''; // auction or sale
 
   product = {
     id: 1,
