@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,17 +10,25 @@ import {RouterLink} from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
 
+export class NavbarComponent {
+  userService: UserService = inject(UserService);
   loggedIn = false;
-  //something from the backend not sure yet
-  user = {
-    name: 'John Doe', age: 30, id: 1,
-  };
+  user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  constructor() {
+    this.checkLogin();
+  }
+
+  checkLogin() {
+    if(localStorage.getItem('user')!=null){
+      this.loggedIn = true;
+    }
+  }
 
   logout() {
-    //some code here to send to the backend
-    console.log('Logout clicked');
+    this.userService.logout();
     this.loggedIn = false;
+    window.location.reload();
   }
 }
