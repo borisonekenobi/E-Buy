@@ -10,11 +10,14 @@
       <p>Login with your username and password</p>
       <div>
         <label type="text">Username</label>
-        <input type="text" placeholder="Username">
+        <input id="username" type="text" placeholder="Username" (input)="validateUsername()"
+               (focusout)="validateUsername()">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="password" placeholder="Password" (input)="validatePassword()"
+               (focusout)="validatePassword()">
       </div>
-      <button id="button">Login</button>
+      <div id="error" class="hidden"></div>
+      <button id="button" (click)="onSubmit()">Login</button>
     </div>
 
     <div class="footer">
