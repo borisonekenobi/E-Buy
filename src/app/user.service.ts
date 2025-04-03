@@ -26,10 +26,10 @@ export class UserService extends Service {
       localStorage.setItem('user', JSON.stringify(data.user));
     }
     if ('access' in data) {
-      localStorage.setItem('access', JSON.stringify(data.access));
+      localStorage.setItem('access', data.access);
     }
     if ('refresh' in data) {
-      localStorage.setItem('refresh', JSON.stringify(data.refresh));
+      localStorage.setItem('refresh', data.refresh);
     }
 
     if ('user' in data) return data.user; else return data;

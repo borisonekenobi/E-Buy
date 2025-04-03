@@ -13,15 +13,14 @@ export class ProductService extends Service {
     super();
   }
 
-  async create(post: Product): Promise<APIResponse> {
-    const res = await fetch(`${this.url}`, {
+  async create(post: Product): Promise<Response> {
+    console.log(JSON.stringify(post));
+    return await fetch(`${this.url}`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(post),
     });
-
-    return await res.json();
   }
 
   async get(): Promise<Product[] | APIResponse> {
