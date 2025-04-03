@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CreatePostPage} from './create-post.page';
 
-describe('CreatePostComponent', () => {
+describe('CreatePostPage', () => {
   let component: CreatePostPage;
   let fixture: ComponentFixture<CreatePostPage>;
 
