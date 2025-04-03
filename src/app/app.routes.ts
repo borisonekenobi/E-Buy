@@ -7,7 +7,7 @@ import {ProfilePage} from './pages/profile/profile.page';
 import {CreatePostPage} from './pages/create-post/create-post.page';
 import {AuctionPage} from './pages/auction/auction.page';
 import {AuctionDetailsPage} from './pages/auction-details/auction-details.page';
-import {BuyPage} from './pages/buy/buy.page';
+import {SalePage} from './pages/sale/sale.page';
 import {BuyDetailsPage} from './pages/buy-details/buy-details.page';
 
 export const routes: Routes = [
@@ -19,8 +19,8 @@ export const routes: Routes = [
   {path: 'create-post', component: CreatePostPage},
   {path: 'auction', component: AuctionPage},
   {path: 'auction/product/:id', component: AuctionDetailsPage},
-  {path: 'buy', component: BuyPage},
-  {path: 'buy/product/:id', component: BuyDetailsPage}];
+  {path: 'sale', component: SalePage},
+  {path: 'sale/product/:id', component: BuyDetailsPage}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)], exports: [RouterModule],

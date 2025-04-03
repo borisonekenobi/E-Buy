@@ -6,14 +6,14 @@ import {ProductService} from '../../product.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-buy',
+  selector: 'app-sale',
   imports: [
     ProductComponent, NgForOf],
-  templateUrl: './buy.page.html',
-  styleUrl: './buy.page.css',
+  templateUrl: './sale.page.html',
+  styleUrl: './sale.page.css',
 })
 
-export class BuyPage {
+export class SalePage {
   private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
 
