@@ -1,7 +1,7 @@
 import {Transaction} from './transaction';
 import {Bid} from './bid';
 
-export interface Post {
+export interface Product {
   id: string;
   user_id: string;
   title: string;

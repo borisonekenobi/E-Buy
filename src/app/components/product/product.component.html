@@ -1,12 +1,5 @@
-<div>
-  <ul>
-    <li *ngFor="let product of data">  <!-- Correct placement of *ngFor -->
-      <div class="card">
-        <h2>{{ product.name }}</h2>
-        <p>Price: {{ product.price }}</p>
-        <button  [routerLink]="['/' + type + '/product', product.id]" >Details</button>
-      </div>
-    </li>
-  </ul>
+<div class="card">
+  <h2>{{ product.title }}</h2>
+  <p>Price: ${{ product.price.toFixed(2) }}</p>
+  <button [routerLink]="['/' + product.type + '/product', product.id]">Details</button>
 </div>
-

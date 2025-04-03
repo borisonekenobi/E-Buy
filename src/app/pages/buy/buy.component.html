@@ -1,4 +1,8 @@
-
 <h1>BUY GOODs</h1>
-
-<app-product [data]="products" [type]='auction' ></app-product>
+<div>
+  <ul>
+    <li *ngFor="let product of products">
+      <app-product [product]='product'></app-product>
+    </li>
+  </ul>
+</div>

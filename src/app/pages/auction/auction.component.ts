@@ -1,32 +1,55 @@
-import { Component } from '@angular/core';
-import { ProductComponent } from '../../components/product/product.component';
+import {Component, inject} from '@angular/core';
+import {ProductComponent} from '../../components/product/product.component';
+import {NgForOf} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {ProductService} from '../../product.service';
+import {Product} from '../../product';
 
 @Component({
   selector: 'app-auction',
-  imports: [ProductComponent],
+  imports: [ProductComponent, NgForOf],
   templateUrl: './auction.component.html',
-  styleUrl: './auction.component.css'
+  styleUrl: './auction.component.css',
 })
 export class AuctionComponent {
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  productService: ProductService = inject(ProductService);
 
-  auction = 'auction';
-
-  products = [
+  products: Product[] = [
     {
-      id: "1",
-      name: 'Product 1',
+      id: '1',
+      user_id: '1',
+      title: 'Product 1',
+      description: 'Description of product 1',
       price: 100,
-    },
-    {
-      id: "2",
-      name: 'Product 2',
+      type: 'auction',
+      status: 'active',
+    }, {
+      id: '2',
+      user_id: '2',
+      title: 'Product 2',
+      description: 'Description of product 2',
       price: 200,
-    },
-    {
-      id: "3",
-      name: 'Product 3',
+      type: 'auction',
+      status: 'active',
+    }, {
+      id: '3',
+      user_id: '3',
+      title: 'Product 3',
+      description: 'Description of product 3',
       price: 300,
-    }
-  ];
+      type: 'auction',
+      status: 'active',
+    }];
 
+  constructor() {
+    this.productService.get().then(r => {
+      if ('message' in r) {
+        console.error(r.message);
+        return;
+      }
+
+      this.products = r as Product[];
+    });
+  }
 }
