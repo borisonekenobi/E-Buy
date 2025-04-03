@@ -1,7 +1,6 @@
 /* Card styling for product list */
 ul {
   list-style-type: none;
-  padding: 0;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
