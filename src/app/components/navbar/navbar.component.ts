@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {User} from '../../user';
+import {Service} from '../../service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,16 +12,19 @@ import {RouterLink} from '@angular/router';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  loggedIn!: boolean;
+  user!: User;
 
-  loggedIn = false;
-  //something from the backend not sure yet
-  user = {
-    name: 'John Doe', age: 30, id: 1,
-  };
+  constructor() {
+    this.loggedIn = !!localStorage.getItem('user');
+    if (this.loggedIn) {
+      this.user = JSON.parse(localStorage.getItem('user')!);
+    }
+  }
 
   logout() {
-    //some code here to send to the backend
-    console.log('Logout clicked');
+    Service.logout();
     this.loggedIn = false;
+    window.location.reload();
   }
 }
