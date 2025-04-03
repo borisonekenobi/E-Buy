@@ -4,6 +4,8 @@ import {
   FormBuilder, FormGroup, ReactiveFormsModule, Validators,
 } from '@angular/forms';
 import {NgForOf} from '@angular/common';
+import {ProductService} from '../../product.service';
+import {Product} from '../../product';
 
 interface Bid {
   bidder: string;
@@ -19,6 +21,8 @@ interface Bid {
   styleUrl: './auction-details.page.css',
 })
 export class AuctionDetailsPage implements OnInit {
+  productService: ProductService = new ProductService();
+
   auction = {
     id: 1,
     name: 'Professional DSLR Camera',
@@ -34,6 +38,8 @@ export class AuctionDetailsPage implements OnInit {
     },
   };
 
+  // auction: Product = {} as Product;
+
   bidHistory: Bid[] = [
     {bidder: 'user****78', amount: 1850, timestamp: 'Apr 1, 2025 - 3:45 PM'},
     {bidder: 'photo****21', amount: 1825, timestamp: 'Apr 1, 2025 - 2:30 PM'},
@@ -47,6 +53,7 @@ export class AuctionDetailsPage implements OnInit {
   bidAmount = 0;
   timeRemaining = '';
   nextMinBid = 0;
+  productId: string;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder) {
     this.bidForm = this.fb.group({
@@ -56,6 +63,16 @@ export class AuctionDetailsPage implements OnInit {
           Validators.min(
             this.auction.currentBid + this.auction.minBidIncrement)]],
     });
+    this.productId = this.route.snapshot.paramMap.get('id') || '';
+    // this.productService.getById(this.productId).then(r => {
+    //   if ('message' in r) {
+    //     console.log(r.message);
+    //     return;
+    //   }
+    //   this.auction = r as Product;
+    // })
+
+
   }
 
   ngOnInit(): void {
