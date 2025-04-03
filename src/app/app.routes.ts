@@ -1,7 +1,11 @@
 import {Routes} from '@angular/router';
 import {HomePage} from './pages/home/home.page';
+import {AuctionComponent} from './pages/auction/auction.component';
+import {BuyComponent} from './pages/buy/buy.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomePage},
+  {path: '', component: HomePage},
+  {path: 'auction', component: AuctionComponent},
+  {path: 'buy', component: BuyComponent},
 ];
+
