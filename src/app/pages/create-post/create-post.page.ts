@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-create-post',
   imports: [],
   templateUrl: './create-post.page.html',
-  styleUrl: './create-post.page.css'
+  styleUrl: './create-post.page.css',
 })
 
 export class CreatePostPage {

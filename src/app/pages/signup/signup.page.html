@@ -10,13 +10,16 @@
       <p>Fill out the information to create your account</p>
       <div>
         <label type="text">Name</label>
-        <input type="text" placeholder="Enter your name">
+        <input id="name" type="text" placeholder="Enter your name" (input)="validateName()" (focusout)="validateName()">
         <label type="text">Username</label>
-        <input type="text" placeholder="Create a username">
+        <input id="username" type="text" placeholder="Create a username" (input)="validateUsername()"
+               (focusout)="validateUsername()">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Create a password">
+        <input id="password" type="password" placeholder="Create a password" (input)="validatePassword()"
+               (focusout)="validatePassword()">
+        <div id="error" class="hidden"></div>
       </div>
-      <button id="button">Create account</button>
+      <button id="button" (click)="onSubmit()">Create account</button>
     </div>
 
     <div class="footer">

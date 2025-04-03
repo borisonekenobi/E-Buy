@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Service} from './service';
 import {APIResponse} from './apiresponse';
-import {Post} from './post';
+import {Product} from './product';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PostService extends Service {
+export class ProductService extends Service {
   readonly url = `${this.host}/posts`;
 
   constructor() {
     super();
   }
 
-  async create(post: Post): Promise<APIResponse> {
+  async create(post: Product): Promise<APIResponse> {
     const res = await fetch(`${this.url}`, {
       method: 'POST', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(post),
     });
@@ -24,10 +24,10 @@ export class PostService extends Service {
     return await res.json();
   }
 
-  async get(): Promise<Post[] | APIResponse> {
+  async get(): Promise<Product[] | APIResponse> {
     const res = await fetch(`${this.url}`, {
       method: 'GET', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       },
     });
@@ -35,10 +35,10 @@ export class PostService extends Service {
     return await res.json();
   }
 
-  async getById(id: string): Promise<Post | APIResponse> {
+  async getById(id: string): Promise<Product | APIResponse> {
     const res = await fetch(`${this.url}/${id}`, {
       method: 'GET', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       },
     });
@@ -46,10 +46,10 @@ export class PostService extends Service {
     return await res.json();
   }
 
-  async update(post: Post): Promise<APIResponse> {
+  async update(post: Product): Promise<APIResponse> {
     const res = await fetch(`${this.url}/${post.id}`, {
       method: 'PUT', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(post),
     });
@@ -60,7 +60,7 @@ export class PostService extends Service {
   async delete(id: string): Promise<APIResponse> {
     const res = await fetch(`${this.url}/${id}`, {
       method: 'DELETE', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       },
     });
@@ -68,10 +68,10 @@ export class PostService extends Service {
     return await res.json();
   }
 
-  async buy(post: Post): Promise<APIResponse> {
+  async buy(post: Product): Promise<APIResponse> {
     const res = await fetch(`${this.url}/buy/${post.id}`, {
       method: 'POST', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       },
     });
@@ -79,10 +79,10 @@ export class PostService extends Service {
     return await res.json();
   }
 
-  async bid(post: Post, amount: number): Promise<APIResponse> {
+  async bid(post: Product, amount: number): Promise<APIResponse> {
     const res = await fetch(`${this.url}/bid/${post.id}`, {
       method: 'POST', headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('access')}`,
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       }, body: JSON.stringify({price: amount}),
     });

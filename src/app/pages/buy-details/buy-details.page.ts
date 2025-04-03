@@ -4,13 +4,13 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-buy-details',
   imports: [],
-  templateUrl: './buy-details.component.html',
-  styleUrl: './buy-details.component.css'
+  templateUrl: './buy-details.page.html',
+  styleUrl: './buy-details.page.css',
 })
 
 //TODO: add authentication to the purchase process
 
-export class BuyDetailsComponent implements OnInit {
+export class BuyDetailsPage implements OnInit {
   //purchase confirmation
   showAlert = false;
   purchaseComplete = false;
@@ -24,7 +24,9 @@ export class BuyDetailsComponent implements OnInit {
     description: 'Experience crystal-clear sound with our premium wireless headphones. Featuring active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions. Perfect for music lovers, gamers, and professionals alike.',
     price: 249.99,
   };
-  constructor(private route: ActivatedRoute) {}
+
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.type = this.route.snapshot.url[0].path;
