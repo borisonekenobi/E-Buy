@@ -1,17 +1,13 @@
 
-<p>this shit works</p>
-
-
 <div>
-  <uL>
-    <ng-container *ngFor="let product of products">
-      <li>
-        <div class="card">
-          <h2>{{ product.name }}</h2>
-          <p>Price: {{ product.price}}</p>
-          <button (click)="details(product.id)">Details</button>
-        </div>
-      </li>
-    </ng-container>
-  </uL>
+  <ul>
+    <li *ngFor="let product of data">  <!-- Correct placement of *ngFor -->
+      <div class="card">
+        <h2>{{ product.name }}</h2>
+        <p>Price: {{ product.price }}</p>
+        <button (click)="details(product.id)">Details</button>
+      </div>
+    </li>
+  </ul>
 </div>
+
