@@ -27,15 +27,5 @@ export class NavbarComponent {
     this.loggedIn = false;
   }
 
-  login(){
-    //some code here to send to the backend
-    console.log('Login clicked');
-    this.loggedIn = true;
-  }
-
-  signup(){
-    //some code here to send to the backend
-    console.log('Signup clicked');
-  }
 
 }
