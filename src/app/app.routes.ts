@@ -8,7 +8,7 @@ import {CreatePostPage} from './pages/create-post/create-post.page';
 import {AuctionPage} from './pages/auction/auction.page';
 import {AuctionDetailsPage} from './pages/auction-details/auction-details.page';
 import {SalePage} from './pages/sale/sale.page';
-import {BuyDetailsPage} from './pages/buy-details/buy-details.page';
+import {SaleDetailsPage} from './pages/buy-details/sale-details.page';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -20,7 +20,7 @@ export const routes: Routes = [
   {path: 'auction', component: AuctionPage},
   {path: 'auction/product/:id', component: AuctionDetailsPage},
   {path: 'sale', component: SalePage},
-  {path: 'sale/product/:id', component: BuyDetailsPage}];
+  {path: 'sale/product/:id', component: SaleDetailsPage}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)], exports: [RouterModule],
