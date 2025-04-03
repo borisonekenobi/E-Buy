@@ -56,6 +56,21 @@ input {
   margin: 8px 0 20px 0
 }
 
+input.invalid {
+  border: 1px solid red;
+}
+
+div#error{
+  color: red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+hidden {
+  display: none;
+}
+
 button {
   background-color: black;
   color: white;

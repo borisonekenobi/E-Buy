@@ -49,14 +49,12 @@ export class UserService extends Service {
   }
 
   async signUp(
-    name: string, username: string, password: string): Promise<APIResponse> {
-    const res = await fetch(`${this.host}/sign-up`, {
+    name: string, username: string, password: string): Promise<Response> {
+    return await fetch(`${this.host}/sign-up`, {
       method: 'POST', headers: {
         'Content-Type': 'application/json',
       }, body: JSON.stringify({name, username, password}),
     });
-
-    return await res.json();
   }
 
   async renewTokens(): Promise<APIResponse | {
