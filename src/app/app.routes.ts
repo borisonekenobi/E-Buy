@@ -6,6 +6,7 @@ import {BuyComponent} from './pages/buy/buy.component';
 import {LoginPage} from './pages/login/login.page';
 import {SignUpPage} from './pages/signup/signup.page';
 import {CreatePostPage} from './pages/create-post/create-post.page';
+import {DetailsComponent} from './pages/details/details.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -14,7 +15,9 @@ export const routes: Routes = [
   {path: 'signup', component: SignUpPage},
   {path: 'create-post', component: CreatePostPage},
   {path: 'auction', component: AuctionComponent},
+  {path: 'auction/product/:id', component: DetailsComponent},
   {path: 'buy', component: BuyComponent},
+  {path: 'buy/product/:id', component: DetailsComponent},
 ];
 
 @NgModule({
