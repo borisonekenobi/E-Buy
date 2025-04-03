@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {Product} from '../../product';
 import {ProductService} from '../../product.service';
 import {ActivatedRoute} from '@angular/router';
@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-sale',
   imports: [
-    ProductComponent, NgForOf],
+    ProductComponent, NgForOf, NgIf],
   templateUrl: './sale.page.html',
   styleUrl: './sale.page.css',
 })

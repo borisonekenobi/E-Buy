@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../product.service';
 import {Product} from '../../product';
 
 @Component({
   selector: 'app-auction',
-  imports: [ProductComponent, NgForOf],
+  imports: [ProductComponent, NgForOf, NgIf],
   templateUrl: './auction.page.html',
   styleUrl: './auction.page.css',
 })
