@@ -47,7 +47,7 @@ export class BuyPage {
   constructor() {
     this.productService.get().then(r => {
       if ('message' in r) {
-        console.error(r.message);
+        console.log(r.message);
         return;
       }
 
