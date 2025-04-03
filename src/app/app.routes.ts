@@ -8,7 +8,7 @@ import {CreatePostPage} from './pages/create-post/create-post.page';
 import {AuctionPage} from './pages/auction/auction.page';
 import {AuctionDetailsPage} from './pages/auction-details/auction-details.page';
 import {SalePage} from './pages/sale/sale.page';
-import {SaleDetailsPage} from './pages/buy-details/sale-details.page';
+import {SaleDetailsPage} from './pages/sale-details/sale-details.page';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
