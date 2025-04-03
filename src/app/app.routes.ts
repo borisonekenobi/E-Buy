@@ -9,11 +9,14 @@ import {CreatePostPage} from './pages/create-post/create-post.page';
 import {BuyDetailsComponent} from './pages/buy-details/buy-details.component';
 import {AuctionDetailsComponent} from './pages/auction-details/auction-details.component';
 
+import {ProfilePage} from './pages/profile/profile.page';
+
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomePage},
   {path: 'login', component: LoginPage},
   {path: 'signup', component: SignUpPage},
+  {path: 'profile', component: ProfilePage},
   {path: 'create-post', component: CreatePostPage},
   {path: 'auction', component: AuctionComponent},
   {path: 'auction/product/:id', component: AuctionDetailsComponent},
