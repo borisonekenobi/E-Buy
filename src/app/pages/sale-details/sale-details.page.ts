@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Product} from '../../product';
+import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-sale-details',
@@ -8,30 +10,26 @@ import {ActivatedRoute} from '@angular/router';
   styleUrl: './sale-details.page.css',
 })
 
-//TODO: add authentication to the purchase process
+export class SaleDetailsPage {
+  productService: ProductService = inject(ProductService);
 
-export class SaleDetailsPage implements OnInit {
-  //purchase confirmation
   showAlert = false;
   purchaseComplete = false;
 
-  productId: string = '';
-  type: string = ''; // auction or sale
-
-  product = {
-    id: 1,
-    name: 'Premium Wireless Headphones',
-    description: 'Experience crystal-clear sound with our premium wireless headphones. Featuring active noise cancellation, 30-hour battery life, and ultra-comfortable ear cushions. Perfect for music lovers, gamers, and professionals alike.',
-    price: 249.99,
-  };
+  product!: Product;
+  price: string = '0.00';
 
   constructor(private route: ActivatedRoute) {
-  }
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.productService.getById(id).then((r) => {
+      if ('message' in r) {
+        console.log(r.message);
+        return;
+      }
 
-  ngOnInit(): void {
-    this.type = this.route.snapshot.url[0].path;
-    this.productId = this.route.snapshot.paramMap.get('id') || '';
-
+      this.product = r;
+      this.price = parseFloat(this.product.price.toString()).toFixed(2);
+    })
   }
 
   buyNow(): void {
@@ -41,9 +39,11 @@ export class SaleDetailsPage implements OnInit {
   confirmPurchase(): void {
     this.purchaseComplete = true;
     this.showAlert = false;
-    setTimeout(() => {
-      this.purchaseComplete = false;
-    }, 3000);
+
+    this.productService.buy(this.product).then((r) => {
+      console.log(r.message);
+      window.location.href = '/';
+    })
   }
 
   cancelPurchase(): void {

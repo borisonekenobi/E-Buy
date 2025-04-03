@@ -1,7 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
 import {NgForOf} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../product.service';
 import {Product} from '../../product';
 
@@ -12,35 +11,8 @@ import {Product} from '../../product';
   styleUrl: './auction.page.css',
 })
 export class AuctionPage {
-  private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
-
-  products: Product[] = [
-    {
-      id: '1',
-      user_id: '1',
-      title: 'Product 1',
-      description: 'Description of product 1',
-      price: 100,
-      type: 'auction',
-      status: 'active',
-    }, {
-      id: '2',
-      user_id: '2',
-      title: 'Product 2',
-      description: 'Description of product 2',
-      price: 200,
-      type: 'auction',
-      status: 'active',
-    }, {
-      id: '3',
-      user_id: '3',
-      title: 'Product 3',
-      description: 'Description of product 3',
-      price: 300,
-      type: 'auction',
-      status: 'active',
-    }];
+  products: Product[] = [];
 
   constructor() {
     this.productService.get().then(r => {

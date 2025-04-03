@@ -12,4 +12,9 @@ import {Product} from '../../product';
 
 export class ProductComponent {
   @Input() product!: Product;
+  price: string = '0.00';
+
+  ngOnInit() {
+    this.price = parseFloat(this.product.price.toString()).toFixed(2);
+  }
 }
