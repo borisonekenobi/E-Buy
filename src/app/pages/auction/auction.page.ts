@@ -8,10 +8,10 @@ import {Product} from '../../product';
 @Component({
   selector: 'app-auction',
   imports: [ProductComponent, NgForOf],
-  templateUrl: './auction.component.html',
-  styleUrl: './auction.component.css',
+  templateUrl: './auction.page.html',
+  styleUrl: './auction.page.css',
 })
-export class AuctionComponent {
+export class AuctionPage {
   private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
 

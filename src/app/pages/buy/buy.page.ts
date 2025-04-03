@@ -9,11 +9,11 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-buy',
   imports: [
     ProductComponent, NgForOf],
-  templateUrl: './buy.component.html',
-  styleUrl: './buy.component.css',
+  templateUrl: './buy.page.html',
+  styleUrl: './buy.page.css',
 })
 
-export class BuyComponent {
+export class BuyPage {
   private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
 
@@ -48,6 +48,7 @@ export class BuyComponent {
     this.productService.get().then(r => {
       if ('message' in r) {
         console.error(r.message);
+        return;
       }
 
       this.products = r as Product[];

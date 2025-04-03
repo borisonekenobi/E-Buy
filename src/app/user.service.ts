@@ -60,8 +60,7 @@ export class UserService extends Service {
   }
 
   async renewTokens(): Promise<APIResponse | {
-    access: string,
-    refresh: string
+    access: string, refresh: string
   }> {
     const res = await fetch(`${this.host}/renew-tokens`, {
       method: 'POST', headers: {

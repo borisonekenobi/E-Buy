@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {
+  FormBuilder, FormGroup, ReactiveFormsModule, Validators,
+} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 
 interface Bid {
@@ -12,13 +14,11 @@ interface Bid {
 @Component({
   selector: 'app-auction-details',
   imports: [
-    ReactiveFormsModule,
-    NgForOf
-  ],
-  templateUrl: './auction-details.component.html',
-  styleUrl: './auction-details.component.css'
+    ReactiveFormsModule, NgForOf],
+  templateUrl: './auction-details.page.html',
+  styleUrl: './auction-details.page.css',
 })
-export class AuctionDetailsComponent implements OnInit {
+export class AuctionDetailsPage implements OnInit {
   auction = {
     id: 1,
     name: 'Professional DSLR Camera',
@@ -26,20 +26,20 @@ export class AuctionDetailsComponent implements OnInit {
     image: 'https://via.placeholder.com/500x500',
     currentBid: 1850,
     minBidIncrement: 25,
-    endTime: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000), // 2 days, 4 hours from now
+    endTime: new Date(
+      Date.now() + 2 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000), // 2 days, 4 hours from now
     totalBids: 23,
     details: {
       seller: 'ProPhotoGear (Rating: 4.9/5)',
-    }
+    },
   };
 
   bidHistory: Bid[] = [
-    { bidder: 'user****78', amount: 1850, timestamp: 'Apr 1, 2025 - 3:45 PM' },
-    { bidder: 'photo****21', amount: 1825, timestamp: 'Apr 1, 2025 - 2:30 PM' },
-    { bidder: 'camera****55', amount: 1800, timestamp: 'Mar 31, 2025 - 8:15 PM' },
-    { bidder: 'user****78', amount: 1775, timestamp: 'Mar 31, 2025 - 6:20 PM' },
-    { bidder: 'photo****21', amount: 1750, timestamp: 'Mar 31, 2025 - 4:10 PM' }
-  ];
+    {bidder: 'user****78', amount: 1850, timestamp: 'Apr 1, 2025 - 3:45 PM'},
+    {bidder: 'photo****21', amount: 1825, timestamp: 'Apr 1, 2025 - 2:30 PM'},
+    {bidder: 'camera****55', amount: 1800, timestamp: 'Mar 31, 2025 - 8:15 PM'},
+    {bidder: 'user****78', amount: 1775, timestamp: 'Mar 31, 2025 - 6:20 PM'},
+    {bidder: 'photo****21', amount: 1750, timestamp: 'Mar 31, 2025 - 4:10 PM'}];
 
   bidForm: FormGroup;
   showBidConfirmation = false;
@@ -48,12 +48,13 @@ export class AuctionDetailsComponent implements OnInit {
   timeRemaining = '';
   nextMinBid = 0;
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder
-  ) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
     this.bidForm = this.fb.group({
-      bidAmount: ['', [Validators.required, Validators.min(this.auction.currentBid + this.auction.minBidIncrement)]]
+      bidAmount: [
+        '', [
+          Validators.required,
+          Validators.min(
+            this.auction.currentBid + this.auction.minBidIncrement)]],
     });
   }
 
@@ -119,13 +120,11 @@ export class AuctionDetailsComponent implements OnInit {
       day: 'numeric',
       year: 'numeric',
       hour: 'numeric',
-      minute: 'numeric'
+      minute: 'numeric',
     });
 
     this.bidHistory.unshift({
-      bidder: 'You',
-      amount: this.bidAmount,
-      timestamp: timestamp
+      bidder: 'You', amount: this.bidAmount, timestamp: timestamp,
     });
 
     // Reset the form
