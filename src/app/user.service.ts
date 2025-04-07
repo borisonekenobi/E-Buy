@@ -38,7 +38,6 @@ export class UserService extends Service {
     }
 
     if ('user' in data) {
-      // TODO: call renewTokens() here every 30 minutes
       this.startTokenRenewal();
       return data.user;
     } else {
