@@ -1,7 +1,7 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Product} from '../../product';
-import { ProductService } from '../../product.service';
+import {ProductService} from '../../product.service';
 
 @Component({
   selector: 'app-sale-details',
@@ -29,7 +29,7 @@ export class SaleDetailsPage {
 
       this.product = r;
       this.price = parseFloat(this.product.price.toString()).toFixed(2);
-    })
+    });
   }
 
   buyNow(): void {
@@ -43,7 +43,7 @@ export class SaleDetailsPage {
     this.productService.buy(this.product).then((r) => {
       console.log(r.message);
       window.location.href = '/';
-    })
+    });
   }
 
   cancelPurchase(): void {

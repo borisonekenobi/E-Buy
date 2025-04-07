@@ -23,8 +23,19 @@ export class ProductService extends Service {
     });
   }
 
-  async get(): Promise<Product[] | APIResponse> {
-    const res = await fetch(`${this.url}`, {
+  async getSales(): Promise<Product[] | APIResponse> {
+    const res = await fetch(`${this.url}/sale`, {
+      method: 'GET', headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return await res.json();
+  }
+
+  async getAuctions(): Promise<Product[] | APIResponse> {
+    const res = await fetch(`${this.url}/auction`, {
       method: 'GET', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',

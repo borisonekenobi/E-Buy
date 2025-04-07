@@ -18,7 +18,7 @@ export class SalePage {
   products: Product[] = [];
 
   constructor() {
-    this.productService.get().then(r => {
+    this.productService.getSales().then(r => {
       if ('message' in r) {
         console.log(r.message);
         return;

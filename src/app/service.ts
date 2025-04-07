@@ -1,5 +1,5 @@
 export abstract class Service {
-  readonly host: string = 'http://localhost:3000/api';
+  readonly host: string = 'http://34.57.234.45:3000/api';
 
   static logout(): void {
     localStorage.removeItem('user');

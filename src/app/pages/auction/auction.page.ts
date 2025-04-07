@@ -15,7 +15,7 @@ export class AuctionPage {
   products: Product[] = [];
 
   constructor() {
-    this.productService.get().then(r => {
+    this.productService.getAuctions().then(r => {
       if ('message' in r) {
         console.log(r.message);
         return;
