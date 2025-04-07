@@ -53,6 +53,16 @@ export class AuctionDetailsPage implements OnInit {
         '', [
           Validators.required, Validators.min(parseFloat(this.nextMinBid))]],
     });
+    this.productId = this.route.snapshot.paramMap.get('id') || '';
+    // this.productService.getById(this.productId).then(r => {
+    //   if ('message' in r) {
+    //     console.log(r.message);
+    //     return;
+    //   }
+    //   this.auction = r as Product;
+    // })
+
+
   }
 
   ngOnInit(): void {

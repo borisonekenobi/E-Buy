@@ -6,7 +6,7 @@ import {Product} from '../../product';
 
 @Component({
   selector: 'app-auction',
-  imports: [ProductComponent, NgForOf],
+  imports: [ProductComponent, NgForOf, NgIf],
   templateUrl: './auction.page.html',
   styleUrl: './auction.page.css',
 })
@@ -20,8 +20,7 @@ export class AuctionPage {
         console.log(r.message);
         return;
       }
-
-      this.products = r as Product[];
+      this.products = (r as Product[]).filter(product => product.type === 'auction');
     });
   }
 }

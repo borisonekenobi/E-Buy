@@ -37,6 +37,7 @@ export class SaleDetailsPage {
     this.showAlert = true;
   }
 
+  //TODO: make sure user is logged in
   confirmPurchase(): void {
     this.purchaseComplete = true;
     this.showAlert = false;

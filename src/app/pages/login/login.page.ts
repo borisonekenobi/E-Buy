@@ -7,6 +7,7 @@ import {UserService} from '../../user.service';
     RouterLink], templateUrl: './login.page.html', styleUrl: './login.page.css',
 })
 
+
 export class LoginPage {
   userService: UserService = inject(UserService);
   isValidUsername: boolean = false;
@@ -25,6 +26,8 @@ export class LoginPage {
       'username')! as HTMLInputElement).value;
     const password = (document.getElementById(
       'password')! as HTMLInputElement).value;
+
+    console.log(username, password);
 
     this.userService.signIn(username, password).then(async r => {
       if ('message' in r) {
@@ -49,6 +52,7 @@ export class LoginPage {
 
   validatePassword() {
     const password = document.getElementById('password')! as HTMLInputElement;
+    console.log(password);
     this.isValidPassword = password.value.length > 0;
     if (!this.isValidPassword) {
       password.classList.add('invalid');

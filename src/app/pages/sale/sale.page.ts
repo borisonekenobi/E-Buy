@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {Product} from '../../product';
 import {ProductService} from '../../product.service';
 
 @Component({
   selector: 'app-sale',
   imports: [
-    ProductComponent, NgForOf],
+    ProductComponent, NgForOf, NgIf],
   templateUrl: './sale.page.html',
   styleUrl: './sale.page.css',
 })
@@ -22,8 +22,7 @@ export class SalePage {
         console.log(r.message);
         return;
       }
-
-      this.products = r as Product[];
+      this.products = (r as Product[]).filter(product => product.type === 'sale');
     });
   }
 }
