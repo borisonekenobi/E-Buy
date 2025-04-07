@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {
   FormBuilder, FormGroup, ReactiveFormsModule, Validators,
 } from '@angular/forms';
@@ -48,7 +47,7 @@ export class AuctionDetailsPage implements OnInit {
   timeRemaining = '';
   nextMinBid = 0;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.bidForm = this.fb.group({
       bidAmount: [
         '', [
