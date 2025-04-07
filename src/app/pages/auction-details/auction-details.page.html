@@ -2,35 +2,30 @@
 <div class="auction-container">
 
   <div class="auction-info">
-    <h1 class="auction-name">{{ auction.name }}</h1>
+    <h1 class="auction-name">{{ product?.title }}</h1>
 
     <div class="auction-detail-item">
       <div class="auction-detail-label">Seller</div>
-      <div class="auction-detail-value">{{ auction.details.seller }}</div>
+      <div class="auction-detail-value">{{ getId(product?.user_id) }}</div>
     </div>
 
-    <p class="auction-description">{{ auction.description }}</p>
+    <p class="auction-description">{{ product?.description }}</p>
 
     <div class="auction-status">
       <div class="auction-status-header">
-        <div class="auction-time">Auction ends in: <span class="auction-time-remaining">{{ timeRemaining }}</span></div>
-        <div class="auction-bids">{{ auction.totalBids }} bids</div>
+        <div class="auction-bids">{{ bids?.length }} bids</div>
       </div>
-      <div class="auction-current-bid">${{ auction.currentBid.toFixed(2) }}</div>
-      <div class="auction-bid-info">
-        <div>Minimum bid increment: ${{ auction.minBidIncrement.toFixed(2) }}</div>
-        <div>Next minimum bid: ${{ nextMinBid.toFixed(2) }}</div>
-      </div>
+      <div class="auction-current-bid">${{ nextMinBid }}</div>
 
       <form class="auction-bid-form" [formGroup]="bidForm" (ngSubmit)="onSubmit()">
         <div class="bid-input-container">
           <span class="currency-symbol">$</span>
           <input type="number" class="bid-input" formControlName="bidAmount" placeholder="Enter your bid"
-                 [min]="nextMinBid" [step]="auction.minBidIncrement">
+                 [min]="nextMinBid" [max]="1000000" required>
         </div>
         <div class="error-message"
              [class.visible]="bidForm.get('bidAmount')?.invalid && bidForm.get('bidAmount')?.touched">
-          Your bid must be at least ${{ nextMinBid.toFixed(2) }}
+          Your bid must be at least ${{ nextMinBid }}
         </div>
         <button type="submit" class="place-bid-button" [disabled]="bidForm.invalid">Place Bid</button>
       </form>
@@ -45,14 +40,12 @@
       <tr>
         <th>Bidder</th>
         <th>Amount</th>
-        <th>Date & Time</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let bid of bidHistory; let i = index">
-        <td>{{ bid.bidder }}</td>
-        <td class="bid-amount" [class.highest-bid]="i === 0">${{ bid.amount.toFixed(2) }}</td>
-        <td>{{ bid.timestamp }}</td>
+      <tr *ngFor="let bid of bids; let i = index">
+        <td>{{ getId(bid.user_id) }}</td>
+        <td class="bid-amount" [class.highest-bid]="i === 0">${{ parseFloat(bid.price.toString()).toFixed(2) }}</td>
       </tr>
       </tbody>
     </table>
@@ -63,7 +56,7 @@
     <div class="alert-box">
       <h3 class="alert-title">Confirm Your Bid</h3>
       <p class="alert-message">Are you sure you want to place a bid of ${{ bidAmount.toFixed(2) }} for
-        the {{ auction.name }}?</p>
+        the {{ product?.title }}?</p>
       <div class="alert-buttons">
         <button class="alert-confirm" (click)="confirmBid()">Confirm Bid</button>
         <button class="alert-cancel" (click)="cancelBid()">Cancel</button>
@@ -79,6 +72,17 @@
         bidder!</p>
       <div class="alert-buttons">
         <button class="alert-confirm" (click)="closeBidSuccess()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bid Failure Alert -->
+  <div class="alert-overlay" [class.active]="showBidFailure">
+    <div class="alert-box">
+      <h3 class="alert-title">Placing Your Bid Failed</h3>
+      <p class="alert-message">{{ bidError }}</p>
+      <div class="alert-buttons">
+        <button class="alert-confirm" (click)="closeBidFailure()">Close</button>
       </div>
     </div>
   </div>

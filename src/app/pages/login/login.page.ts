@@ -27,8 +27,6 @@ export class LoginPage {
     const password = (document.getElementById(
       'password')! as HTMLInputElement).value;
 
-    console.log(username, password);
-
     this.userService.signIn(username, password).then(async r => {
       if ('message' in r) {
         const error = document.getElementById('error')! as HTMLDivElement;
@@ -52,7 +50,6 @@ export class LoginPage {
 
   validatePassword() {
     const password = document.getElementById('password')! as HTMLInputElement;
-    console.log(password);
     this.isValidPassword = password.value.length > 0;
     if (!this.isValidPassword) {
       password.classList.add('invalid');

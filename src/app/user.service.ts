@@ -7,19 +7,24 @@ import {APIResponse} from './apiresponse';
   providedIn: 'root',
 })
 export class UserService extends Service {
+  static readonly tokenRenewTime: number = 1000 * 60 * 30; // 30 minutes
+  static tokenRenewalInterval: NodeJS.Timeout | null = null;
+
   constructor() {
     super();
+
+    if (localStorage.getItem('user')) {
+      this.startTokenRenewal();
+    }
   }
 
   async signIn(
     username: string, password: string): Promise<User | APIResponse> {
-    const res = await fetch(`${this.host}/sign-in`, {
+    const res = await fetch(`${Service.host}/sign-in`, {
       method: 'POST', headers: {
         'Content-Type': 'application/json',
       }, body: JSON.stringify({username, password}),
     });
-
-    // TODO: call this.renewTokens() every 30 minutes
 
     const data = await res.json();
     if ('user' in data) {
@@ -32,13 +37,18 @@ export class UserService extends Service {
       localStorage.setItem('refresh', data.refresh);
     }
 
-    if ('user' in data) return data.user; else return data;
+    if ('user' in data) {
+      this.startTokenRenewal();
+      return data.user;
+    } else {
+      return data;
+    }
   }
 
   async changePassword(
     username: string, oldPassword: string,
     newPassword: string): Promise<APIResponse> {
-    const res = await fetch(`${this.host}/change-password`, {
+    const res = await fetch(`${Service.host}/change-password`, {
       method: 'POST', headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
@@ -50,7 +60,7 @@ export class UserService extends Service {
 
   async signUp(
     name: string, username: string, password: string): Promise<Response> {
-    return await fetch(`${this.host}/sign-up`, {
+    return await fetch(`${Service.host}/sign-up`, {
       method: 'POST', headers: {
         'Content-Type': 'application/json',
       }, body: JSON.stringify({name, username, password}),
@@ -60,7 +70,7 @@ export class UserService extends Service {
   async renewTokens(): Promise<APIResponse | {
     access: string, refresh: string
   }> {
-    const res = await fetch(`${this.host}/renew-tokens`, {
+    const res = await fetch(`${Service.host}/renew-tokens`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('refresh')}`,
       },
@@ -68,13 +78,30 @@ export class UserService extends Service {
 
     const data = await res.json();
     if ('access' in data) {
-      localStorage.setItem('access', JSON.stringify(data.access));
+      localStorage.setItem('access', data.access);
     }
     if ('refresh' in data) {
-      localStorage.setItem('refresh', JSON.stringify(data.refresh));
+      localStorage.setItem('refresh', data.refresh);
     }
 
     return data;
   }
 
+  logout(): void {
+    localStorage.removeItem('user');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+  }
+
+  private startTokenRenewal() {
+    this.renewTokens().then(() => {
+      UserService.tokenRenewalInterval = setInterval(() => {
+        this.renewTokens().then((r) => {
+          if ('message' in r) {
+            console.log(r.message);
+          }
+        });
+      }, UserService.tokenRenewTime);
+    });
+  }
 }

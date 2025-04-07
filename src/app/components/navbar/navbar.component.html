@@ -17,6 +17,9 @@
         <a routerLink="/profile" class="navbar-item">{{ user.name }}</a>
       </div>
       <div class="navbar-item">
+        <a routerLink="/create-post" class="navbar-item">Orders</a>
+      </div>
+      <div class="navbar-item">
         <button (click)="logout()" class="button is-light">Logout</button>
       </div>
     </div>
@@ -26,9 +29,8 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <button routerLink="signup" class="button is-light">Register</button>
-        <button routerLink="login" class="button is-light">login</button>
+        <button routerLink="login" class="button is-light">Login</button>
       </div>
     </div>
   </div>
-
 </nav>

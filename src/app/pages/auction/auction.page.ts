@@ -1,7 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
 import {NgForOf, NgIf} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../product.service';
 import {Product} from '../../product';
 
@@ -12,13 +11,11 @@ import {Product} from '../../product';
   styleUrl: './auction.page.css',
 })
 export class AuctionPage {
-  private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
-
   products: Product[] = [];
 
   constructor() {
-    this.productService.get().then(r => {
+    this.productService.getAuctions().then(r => {
       if ('message' in r) {
         console.log(r.message);
         return;

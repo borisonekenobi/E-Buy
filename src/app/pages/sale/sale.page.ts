@@ -3,7 +3,6 @@ import {ProductComponent} from '../../components/product/product.component';
 import {NgForOf, NgIf} from '@angular/common';
 import {Product} from '../../product';
 import {ProductService} from '../../product.service';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-sale',
@@ -14,14 +13,11 @@ import {ActivatedRoute} from '@angular/router';
 })
 
 export class SalePage {
-  private route: ActivatedRoute = inject(ActivatedRoute);
   productService: ProductService = inject(ProductService);
-
   products: Product[] = [];
-  sale: Product[] = [];
 
   constructor() {
-    this.productService.get().then(r => {
+    this.productService.getSales().then(r => {
       if ('message' in r) {
         console.log(r.message);
         return;

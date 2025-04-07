@@ -1,7 +1,8 @@
-import {Component, inject, Inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ProductService} from '../../product.service';
 import {Product} from '../../product';
+import {ProductService} from '../../product.service';
+import {APIResponse} from '../../apiresponse';
 
 @Component({
   selector: 'app-sale-details',
@@ -10,42 +11,53 @@ import {Product} from '../../product';
   styleUrl: './sale-details.page.css',
 })
 
-//TODO: add authentication to the purchase process
+export class SaleDetailsPage {
+  productService: ProductService = inject(ProductService);
 
-export class SaleDetailsPage{
-  //purchase confirmation
   showAlert = false;
   purchaseComplete = false;
 
-  productId: string = '';
-  type: string = ''; // auction or sale
-
-  productService: ProductService = inject(ProductService);
-
-  product = {} as Product;
+  product: Product | undefined;
+  price: string = '0.00';
 
   constructor(private route: ActivatedRoute) {
-    this.productId = this.route.snapshot.paramMap.get('id') || '';
-    this.productService.getById(this.productId).then(r => {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.productService.getById(id).then((r) => {
       if ('message' in r) {
         console.log(r.message);
         return;
       }
-      this.product = r as Product;
-    })
+
+      this.product = r;
+      this.price = parseFloat(this.product.price.toString()).toFixed(2);
+    });
   }
 
   buyNow(): void {
     this.showAlert = true;
   }
 
-  //TODO: make sure user is logged in
   confirmPurchase(): void {
     this.purchaseComplete = true;
     this.showAlert = false;
-    setTimeout(() => {
-      this.purchaseComplete = false;
-    }, 3000);
+
+    if (!this.product) {
+      console.error('Product not found');
+      return;
+    }
+
+    this.productService.buy(this.product).then(async (r) => {
+      if (r.ok) {
+        const res: APIResponse = await r.json();
+        console.log(res.message);
+        window.location.href = '/';
+      } else {
+        const res: APIResponse = await r.json();
+        console.error(res.message);
+        this.purchaseComplete = false;
+        this.showAlert = true;
+      }
+    });
   }
 
   cancelPurchase(): void {

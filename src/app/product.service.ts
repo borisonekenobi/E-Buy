@@ -7,14 +7,13 @@ import {Product} from './product';
   providedIn: 'root',
 })
 export class ProductService extends Service {
-  readonly url = `${this.host}/posts`;
+  readonly url = `${Service.host}/posts`;
 
   constructor() {
     super();
   }
 
   async create(post: Product): Promise<Response> {
-    console.log(JSON.stringify(post));
     return await fetch(`${this.url}`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
@@ -23,8 +22,19 @@ export class ProductService extends Service {
     });
   }
 
-  async get(): Promise<Product[] | APIResponse> {
-    const res = await fetch(`${this.url}`, {
+  async getSales(): Promise<Product[] | APIResponse> {
+    const res = await fetch(`${this.url}/sale`, {
+      method: 'GET', headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access')}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return await res.json();
+  }
+
+  async getAuctions(): Promise<Product[] | APIResponse> {
+    const res = await fetch(`${this.url}/auction`, {
       method: 'GET', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
@@ -67,25 +77,21 @@ export class ProductService extends Service {
     return await res.json();
   }
 
-  async buy(post: Product): Promise<APIResponse> {
-    const res = await fetch(`${this.url}/buy/${post.id}`, {
+  async buy(post: Product): Promise<Response> {
+    return await fetch(`${this.url}/buy/${post.id}`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       },
     });
-
-    return await res.json();
   }
 
-  async bid(post: Product, amount: number): Promise<APIResponse> {
-    const res = await fetch(`${this.url}/bid/${post.id}`, {
+  async bid(post: Product, amount: number): Promise<Response> {
+    return await fetch(`${this.url}/bid/${post.id}`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,
         'Content-Type': 'application/json',
       }, body: JSON.stringify({price: amount}),
     });
-
-    return await res.json();
   }
 }
