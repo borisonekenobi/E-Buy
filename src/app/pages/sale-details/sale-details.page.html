@@ -1,8 +1,8 @@
 <div class="product-container">
 
   <div class="product-info">
-    <h1 class="product-name">{{ product.title }}</h1>
-    <p class="product-description">{{ product.description }}</p>
+    <h1 class="product-name">{{ product?.title }}</h1>
+    <p class="product-description">{{ product?.description }}</p>
     <div class="product-price">${{ price }}</div>
     <div class="product-actions">
       <button class="buy-button" (click)="buyNow()">Buy Now</button>
@@ -13,7 +13,7 @@
   <div class="alert-overlay" [class.active]="showAlert">
     <div class="alert-box">
       <h3 class="alert-title">Confirm Purchase</h3>
-      <p class="alert-message">Are you sure you want to purchase {{ product.title }} for ${{ price }}?</p>
+      <p class="alert-message">Are you sure you want to purchase {{ product?.title }} for ${{ price }}?</p>
       <div class="alert-buttons">
         <button class="alert-confirm" (click)="confirmPurchase()">Confirm</button>
         <button class="alert-cancel" (click)="cancelPurchase()">Cancel</button>

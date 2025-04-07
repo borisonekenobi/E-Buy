@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {ProductComponent} from '../../components/product/product.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {ProductService} from '../../product.service';
 import {Product} from '../../product';
 

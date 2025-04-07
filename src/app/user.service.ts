@@ -7,8 +7,15 @@ import {APIResponse} from './apiresponse';
   providedIn: 'root',
 })
 export class UserService extends Service {
+  static readonly tokenRenewTime: number = 1000 * 60 * 30; // 30 minutes
+  static tokenRenewalInterval: NodeJS.Timeout | null = null;
+
   constructor() {
     super();
+
+    if (localStorage.getItem('user')) {
+      this.startTokenRenewal();
+    }
   }
 
   async signIn(
@@ -31,7 +38,8 @@ export class UserService extends Service {
     }
 
     if ('user' in data) {
-      Service.tokenInterval = setInterval(async () => this.renewTokens(), 1000);
+      // TODO: call renewTokens() here every 30 minutes
+      this.startTokenRenewal();
       return data.user;
     } else {
       return data;
@@ -71,13 +79,30 @@ export class UserService extends Service {
 
     const data = await res.json();
     if ('access' in data) {
-      localStorage.setItem('access', JSON.stringify(data.access));
+      localStorage.setItem('access', data.access);
     }
     if ('refresh' in data) {
-      localStorage.setItem('refresh', JSON.stringify(data.refresh));
+      localStorage.setItem('refresh', data.refresh);
     }
 
     return data;
   }
 
+  logout(): void {
+    localStorage.removeItem('user');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+  }
+
+  private startTokenRenewal() {
+    this.renewTokens().then(() => {
+      UserService.tokenRenewalInterval = setInterval(() => {
+        this.renewTokens().then((r) => {
+          if ('message' in r) {
+            console.log(r.message);
+          }
+        });
+      }, UserService.tokenRenewTime);
+    });
+  }
 }

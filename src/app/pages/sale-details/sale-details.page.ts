@@ -17,7 +17,7 @@ export class SaleDetailsPage {
   showAlert = false;
   purchaseComplete = false;
 
-  product!: Product;
+  product: Product | undefined;
   price: string = '0.00';
 
   constructor(private route: ActivatedRoute) {
@@ -37,10 +37,14 @@ export class SaleDetailsPage {
     this.showAlert = true;
   }
 
-  //TODO: make sure user is logged in
   confirmPurchase(): void {
     this.purchaseComplete = true;
     this.showAlert = false;
+
+    if (!this.product) {
+      console.error('Product not found');
+      return;
+    }
 
     this.productService.buy(this.product).then(async (r) => {
       if (r.ok) {

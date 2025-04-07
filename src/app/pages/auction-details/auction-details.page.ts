@@ -19,8 +19,8 @@ import {APIResponse} from '../../apiresponse';
 export class AuctionDetailsPage implements OnInit {
   productService: ProductService = inject(ProductService);
 
-  product!: Product;
-  bids!: Bid[];
+  product: Product | undefined;
+  bids: Bid[] | undefined;
 
   bidForm: FormGroup;
   showBidConfirmation = false;
@@ -28,7 +28,6 @@ export class AuctionDetailsPage implements OnInit {
   showBidFailure = false;
   bidError = '';
   bidAmount = 0;
-  timeRemaining = '';
   nextMinBid: string = '0.00';
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder) {
@@ -53,16 +52,6 @@ export class AuctionDetailsPage implements OnInit {
         '', [
           Validators.required, Validators.min(parseFloat(this.nextMinBid))]],
     });
-    this.productId = this.route.snapshot.paramMap.get('id') || '';
-    // this.productService.getById(this.productId).then(r => {
-    //   if ('message' in r) {
-    //     console.log(r.message);
-    //     return;
-    //   }
-    //   this.auction = r as Product;
-    // })
-
-
   }
 
   ngOnInit(): void {
@@ -75,7 +64,8 @@ export class AuctionDetailsPage implements OnInit {
     }, 1000 * 60);
   }
 
-  getId(id: string): string {
+  getId(id: string | undefined): string {
+    if (!id) return '';
     return id.substring(0, 4) + '...' + id.substring(id.length - 4);
   }
 
@@ -102,6 +92,7 @@ export class AuctionDetailsPage implements OnInit {
   }
 
   calculateNextMinBid(): void {
+    if (!this.product || !this.bids) return;
     this.nextMinBid = this.bids.length > 0 ?
       (parseFloat(this.bids[0].price.toString()) * 1.01).toFixed(2) :
       this.product.price.toFixed(2);
@@ -118,6 +109,13 @@ export class AuctionDetailsPage implements OnInit {
 
   confirmBid(): void {
     this.showBidConfirmation = false;
+
+    if (!this.product) {
+      console.error('Product is undefined');
+      this.bidError = 'Unknown error occurred';
+      this.showBidFailure = true;
+      return;
+    }
 
     this.productService.bid(this.product, this.bidAmount).then(async (r) => {
       if (r.ok) {

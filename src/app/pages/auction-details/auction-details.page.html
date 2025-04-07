@@ -2,30 +2,20 @@
 <div class="auction-container">
 
   <div class="auction-info">
-    <h1 class="auction-name">{{ product.title }}</h1>
+    <h1 class="auction-name">{{ product?.title }}</h1>
 
     <div class="auction-detail-item">
       <div class="auction-detail-label">Seller</div>
-      <div class="auction-detail-value">{{ getId(product.user_id) }}</div>
+      <div class="auction-detail-value">{{ getId(product?.user_id) }}</div>
     </div>
 
-    <p class="auction-description">{{ product.description }}</p>
+    <p class="auction-description">{{ product?.description }}</p>
 
     <div class="auction-status">
       <div class="auction-status-header">
-        <div class="auction-time">Auction ends in: <span class="auction-time-remaining">{{ timeRemaining }}</span></div>
-        <div class="auction-bids">{{ bids.length }} bids</div>
+        <div class="auction-bids">{{ bids?.length }} bids</div>
       </div>
-      <div class="auction-current-bid">${{
-          bids.length > 0 ?
-            parseFloat(bids[0].price.toString()).toFixed(2) :
-            product.price
-        }}
-      </div>
-      <!--      <div class="auction-bid-info">-->
-      <!--        <div>Minimum bid increment: ${{ product.minBidIncrement.toFixed(2) }}</div>-->
-      <!--        <div>Next minimum bid: ${{ nextMinBid.toFixed(2) }}</div>-->
-      <!--      </div>-->
+      <div class="auction-current-bid">${{ nextMinBid }}</div>
 
       <form class="auction-bid-form" [formGroup]="bidForm" (ngSubmit)="onSubmit()">
         <div class="bid-input-container">
@@ -53,7 +43,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let bid of product.bids; let i = index">
+      <tr *ngFor="let bid of bids; let i = index">
         <td>{{ getId(bid.user_id) }}</td>
         <td class="bid-amount" [class.highest-bid]="i === 0">${{ parseFloat(bid.price.toString()).toFixed(2) }}</td>
       </tr>
@@ -66,7 +56,7 @@
     <div class="alert-box">
       <h3 class="alert-title">Confirm Your Bid</h3>
       <p class="alert-message">Are you sure you want to place a bid of ${{ bidAmount.toFixed(2) }} for
-        the {{ product.title }}?</p>
+        the {{ product?.title }}?</p>
       <div class="alert-buttons">
         <button class="alert-confirm" (click)="confirmBid()">Confirm Bid</button>
         <button class="alert-cancel" (click)="cancelBid()">Cancel</button>

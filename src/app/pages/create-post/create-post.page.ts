@@ -42,8 +42,6 @@ export class CreatePostPage {
       return;
     }
 
-    console.log(title);
-
     const post: Product = {
       id: '',
       user_id: JSON.parse(localStorage.getItem('user')!).id,

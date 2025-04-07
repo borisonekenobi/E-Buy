@@ -14,7 +14,6 @@ export class ProductService extends Service {
   }
 
   async create(post: Product): Promise<Response> {
-    console.log(JSON.stringify(post));
     return await fetch(`${this.url}`, {
       method: 'POST', headers: {
         'Authorization': `Bearer ${localStorage.getItem('access')}`,

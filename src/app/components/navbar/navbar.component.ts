@@ -3,6 +3,7 @@ import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {User} from '../../user';
 import {Service} from '../../service';
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,8 @@ import {Service} from '../../service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  userService: UserService = inject(UserService);
+
   loggedIn!: boolean;
   user!: User;
 
@@ -23,7 +26,7 @@ export class NavbarComponent {
   }
 
   logout() {
-    Service.logout();
+    this.userService.logout();
     this.loggedIn = false;
     window.location.reload();
   }
