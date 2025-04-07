@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Product} from '../../product';
 import {ProductService} from '../../product.service';
+import {APIResponse} from '../../apiresponse';
 
 @Component({
   selector: 'app-sale-details',
@@ -40,9 +41,17 @@ export class SaleDetailsPage {
     this.purchaseComplete = true;
     this.showAlert = false;
 
-    this.productService.buy(this.product).then((r) => {
-      console.log(r.message);
-      window.location.href = '/';
+    this.productService.buy(this.product).then(async (r) => {
+      if (r.ok) {
+        const res: APIResponse = await r.json();
+        console.log(res.message);
+        window.location.href = '/';
+      } else {
+        const res: APIResponse = await r.json();
+        console.error(res.message);
+        this.purchaseComplete = false;
+        this.showAlert = true;
+      }
     });
   }
 
