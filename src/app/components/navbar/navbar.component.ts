@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {User} from '../../user';
-import {Service} from '../../service';
 import {UserService} from '../../user.service';
 
 @Component({
