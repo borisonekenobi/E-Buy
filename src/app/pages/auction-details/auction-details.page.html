@@ -1,0 +1,89 @@
+<!-- Auction Detail -->
+<div class="auction-container">
+
+  <div class="auction-info">
+    <h1 class="auction-name">{{ product?.title }}</h1>
+
+    <div class="auction-detail-item">
+      <div class="auction-detail-label">Seller</div>
+      <div class="auction-detail-value">{{ getId(product?.user_id) }}</div>
+    </div>
+
+    <p class="auction-description">{{ product?.description }}</p>
+
+    <div class="auction-status">
+      <div class="auction-status-header">
+        <div class="auction-bids">{{ bids?.length }} bids</div>
+      </div>
+      <div class="auction-current-bid">${{ nextMinBid }}</div>
+
+      <form class="auction-bid-form" [formGroup]="bidForm" (ngSubmit)="onSubmit()">
+        <div class="bid-input-container">
+          <span class="currency-symbol">$</span>
+          <input type="number" class="bid-input" formControlName="bidAmount" placeholder="Enter your bid"
+                 [min]="nextMinBid" [max]="1000000" required>
+        </div>
+        <div class="error-message"
+             [class.visible]="bidForm.get('bidAmount')?.invalid && bidForm.get('bidAmount')?.touched">
+          Your bid must be at least ${{ nextMinBid }}
+        </div>
+        <button type="submit" class="place-bid-button" [disabled]="bidForm.invalid">Place Bid</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bid History Section -->
+  <div class="bid-history-section">
+    <h3 class="bid-history-title">Bid History</h3>
+    <table class="bid-history-table">
+      <thead>
+      <tr>
+        <th>Bidder</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bid of bids; let i = index">
+        <td>{{ getId(bid.user_id) }}</td>
+        <td class="bid-amount" [class.highest-bid]="i === 0">${{ parseFloat(bid.price.toString()).toFixed(2) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bid Confirmation Alert -->
+  <div class="alert-overlay" [class.active]="showBidConfirmation">
+    <div class="alert-box">
+      <h3 class="alert-title">Confirm Your Bid</h3>
+      <p class="alert-message">Are you sure you want to place a bid of ${{ bidAmount.toFixed(2) }} for
+        the {{ product?.title }}?</p>
+      <div class="alert-buttons">
+        <button class="alert-confirm" (click)="confirmBid()">Confirm Bid</button>
+        <button class="alert-cancel" (click)="cancelBid()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bid Success Alert -->
+  <div class="alert-overlay" [class.active]="showBidSuccess">
+    <div class="alert-box">
+      <h3 class="alert-title">Bid Placed Successfully!</h3>
+      <p class="alert-message">Your bid of ${{ bidAmount.toFixed(2) }} has been placed. You are now the highest
+        bidder!</p>
+      <div class="alert-buttons">
+        <button class="alert-confirm" (click)="closeBidSuccess()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bid Failure Alert -->
+  <div class="alert-overlay" [class.active]="showBidFailure">
+    <div class="alert-box">
+      <h3 class="alert-title">Placing Your Bid Failed</h3>
+      <p class="alert-message">{{ bidError }}</p>
+      <div class="alert-buttons">
+        <button class="alert-confirm" (click)="closeBidFailure()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+.screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  background-color: white;
+}
+
+.container {
+  width: 350px;
+  padding: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #cfcfcf;
+}
+
+.header {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 24px;
+}
+
+p {
+  color: #848484;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input, textarea {
+  width: 95%;
+  border: 1px solid #cfcfcf;
+  border-radius: 5px;
+  padding: 10px;
+  outline: none;
+  box-shadow: none;
+  margin: 8px 0 20px 0
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.invalid {
+  border: 1px solid red !important;
+}
+
+div#error{
+  color: red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+hidden {
+  display: none;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgb(69, 69, 69);
+}
+
+.or {
+  color: black;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.or a {
+  color: black;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.or a:hover {
+  color: rgb(105, 105, 105);
+}
+
+#category {
+  width: 100%;
+  border-radius: 5px;
+  border: 0;
+  padding: 10px;
+  outline: none;
+  box-shadow: none;
+}
+
+#select {
+  width: 99%;
+  border-radius: 5px;
+  border: 1px solid #cfcfcf;
+  outline: none;
+  box-shadow: none;
+  margin: 8px 0 20px 0
+}
+
+.container {
+  width: 500px;
+}

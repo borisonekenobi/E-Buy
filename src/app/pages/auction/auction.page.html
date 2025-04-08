@@ -1,0 +1,15 @@
+<h1>AUCTION GOODs</h1>
+
+
+<div *ngIf="products.length <= 0">
+  <p>No product posts</p>
+</div>
+
+<div *ngIf="products.length > 0">
+  <ul>
+    <li *ngFor="let product of products">
+      <app-product [product]='product'></app-product>
+    </li>
+  </ul>
+</div>
+

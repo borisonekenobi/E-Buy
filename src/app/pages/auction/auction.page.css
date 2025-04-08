@@ -1,0 +1,27 @@
+/* Card styling for product list */
+ul {
+  list-style-type: none;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+li {
+  display: flex;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  ul {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  ul {
+    grid-template-columns: 1fr;
+  }
+}

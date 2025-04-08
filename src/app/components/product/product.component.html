@@ -1,1 +1,5 @@
-<p>product works!</p>
+<div class="card">
+  <h2>{{ product.title }}</h2>
+  <p>Price: ${{ price }}</p>
+  <button [routerLink]="['/' + product.type + '/product', product.id]">Details</button>
+</div>
